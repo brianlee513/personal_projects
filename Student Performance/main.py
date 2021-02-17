@@ -10,8 +10,7 @@ from matplotlib import style
 
 data = pd.read_csv('student-mat.csv', sep=";")
 
-data = data[["G1", "G2", "G3", "studytime", "failures", "absences"]]
-
+data = data[["G1", "G2", "G3", "age", "health","studytime", "failures", "absences"]]
 predict = "G3"
 
 X = np.array(data.drop([predict], 1))
@@ -19,7 +18,10 @@ Y = np.array(data[predict])
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size = 0.1)
 
 best = 0
-for x in range(30):
+passedacc = []
+iteration = 30
+
+for x in range(iteration):
     x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size = 0.1)
     linear = linear_model.LinearRegression()
 
@@ -31,6 +33,8 @@ for x in range(30):
         best = accuracy
         with open("studentmodel.pickle", "wb") as f:
             pickle.dump(linear, f)
+
+    passedacc.append(accuracy)
 
 pickle_in = open("studentmodel.pickle", "rb")
 linear = pickle.load(pickle_in)
@@ -44,8 +48,9 @@ for x in range(len(prediction)):
     print(prediction[x], x_test[x], y_test[x])
 
 p = "G1"
+q = "Trials"
 style.use("ggplot")
-pyplot.scatter(data[p], data["G3"])
-pyplot.xlabel(p)
-pyplot.ylabel("Final Score")
+pyplot.scatter(list(range(0, iteration)), passedacc)
+pyplot.xlabel(q)
+pyplot.ylabel("Accuracy")
 pyplot.show()
