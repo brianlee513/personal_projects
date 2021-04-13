@@ -14,7 +14,10 @@ data = data[["G1", "G2", "G3", "age", "health","studytime", "failures", "absence
 predict = "G3"
 
 X = np.array(data.drop([predict], 1))
+print(X)
+print(X.dtype)
 Y = np.array(data[predict])
+print(Y.dtype)
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size = 0.1)
 
 best = 0
