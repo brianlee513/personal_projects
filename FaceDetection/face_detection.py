@@ -1,7 +1,15 @@
 import cv2 as cv
 import numpy as np
+import pickle
 
 face_cascade = cv.CascadeClassifier('cascades/data/haarcascade_frontalface_alt2.xml')
+recognizer = cv.face.LBPHFaceRecognizer_create()
+recognizer.read("trainner.yml")
+
+labels = {"person_name" : 1}
+with open("labels.pickle", 'rb') as f :
+    og_labels = pickle.load(f)
+    labels = {v:k for k,v in og_labels.items()}
 
 capture = cv.VideoCapture(0)
 capture.set(cv.CAP_PROP_FRAME_WIDTH, 640)
@@ -16,6 +24,17 @@ while(True):
         print(x, y, w, h)
         roi_gray = gray[y : y +h, x : x + w]
         roi_color = frame[y : y +h, x : x + w]
+
+        id_, conf = recognizer.predict(roi_gray)
+        if conf >=45: #and cof <= 85:
+            print(id_)
+            print(labels[id_])
+            font = cv.FONT_HERSHEY_SIMPLEX
+            name = labels[id_]
+            color = (255,255,255)
+            stroke = 2
+            cv.putText(frame, name, (x,y), font, 1, color, stroke, cv.LINE_AA)
+
         img_item = "my-image.png"
         cv.imwrite(img_item, roi_gray)
 
