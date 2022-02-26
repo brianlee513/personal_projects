@@ -16,18 +16,18 @@ capture_quad = cv2.VideoCapture(best_quad.url)
 
 
 while cv2.waitKey(33) < 0:
+    #window to display size
     cv2.namedWindow("VideoFrame", cv2.WINDOW_NORMAL)
     cv2.namedWindow("Quad", cv2.WINDOW_NORMAL)
+    #window to videow size
     cv2.resizeWindow("VideoFrame", 1920, 1080)
     cv2.resizeWindow("Quad", 1920, 1080)
+    #Read frame by frame
     quad_ret, quad_frame = capture_quad.read()
-
-    #cv2.resizeWindow("VideoFrame", (1920, 1080))
     alma_ret, alma_frame = capture_alma.read()
-    #cv2.resizeWindow(alma_frame, 1920, 1080)
 
+    #Show frame
     cv2.imshow("VideoFrame", alma_frame)
-
     cv2.imshow("Quad", quad_frame)
 
 capture_alma.release()
