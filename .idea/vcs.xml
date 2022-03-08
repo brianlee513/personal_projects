@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Drowsiness-and-Yawn-Detection-with-voice-alert-using-Dlib" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PifPaf-TensorRT-Pose-Estimation" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/r-web-api" vcs="Git" />
   </component>
 </project>
